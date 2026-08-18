@@ -81,7 +81,7 @@ export default function UnitConverter() {
             </select>
             <input 
               type="number" 
-              className="w-full border rounded-md p-4 text-2xl font-mono focus:outline-none focus:ring-1 focus:ring-ring"
+              className="w-full border rounded-md p-4 text-2xl font-mono focus:outline-none focus:ring-1 focus:ring-ring text-foreground bg-background"
               value={val1}
               onChange={(e) => setVal1(e.target.value)}
               placeholder="0.00"
@@ -104,7 +104,7 @@ export default function UnitConverter() {
             </select>
             <input 
               type="number" 
-              className="w-full border rounded-md p-4 text-2xl font-mono focus:outline-none focus:ring-1 focus:ring-ring bg-muted/30"
+              className="w-full border rounded-md p-4 text-2xl font-mono focus:outline-none focus:ring-1 focus:ring-ring text-foreground bg-muted/30"
               value={val2}
               onChange={(e) => {
                 setVal2(e.target.value);
