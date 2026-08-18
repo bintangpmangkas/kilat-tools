@@ -7,6 +7,9 @@ import ToolLayout from './components/ToolLayout';
 
 // Mock Pages
 const Home = () => {
+  const greatestHitsIds = ['pdf-merge', 'image-enhancer', 'social-cropper', 'qr-generator'];
+  const greatestHitsTools = greatestHitsIds.map(id => tools.find(t => t.id === id)).filter(Boolean);
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Hero Section */}
@@ -36,7 +39,7 @@ const Home = () => {
           <span className="text-xs font-normal">4</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {tools.slice(0, 4).map(tool => (
+          {greatestHitsTools.map(tool => (
             <ToolCard key={tool.id} tool={tool} />
           ))}
         </div>
