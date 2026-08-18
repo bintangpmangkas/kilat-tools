@@ -70,7 +70,7 @@ export default function TableViewer() {
             <input 
               type="text" 
               placeholder="Search table..." 
-              className="w-full border rounded-md pl-9 pr-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+              className="w-full border rounded-md pl-9 pr-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-ring text-foreground bg-background"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
