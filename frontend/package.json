@@ -52,6 +52,7 @@
     "onnxruntime-web": "1.21.0",
     "papaparse": "^5.6.0",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "3.11.174",
     "qr-code-styling": "^1.9.2",
     "react": "19.0.0",
     "react-day-picker": "8.10.1",

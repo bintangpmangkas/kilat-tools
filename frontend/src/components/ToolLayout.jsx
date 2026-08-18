@@ -5,6 +5,7 @@ import * as Icons from 'lucide-react';
 import { Button } from './ui/button';
 
 import PDFMerge from './tools/PDFMerge';
+import PDFToTable from './tools/PDFToTable';
 import ImageToPDF from './tools/ImageToPDF';
 import ImageCompressor from './tools/ImageCompressor';
 import BackgroundRemover from './tools/BackgroundRemover';
@@ -33,6 +34,7 @@ export default function ToolLayout() {
   const getToolComponent = () => {
     switch(tool.slug) {
       case 'pdf-merge': return <PDFMerge />;
+      case 'pdf-to-table': return <PDFToTable />;
       case 'image-to-pdf': return <ImageToPDF />;
       case 'image-compressor': return <ImageCompressor />;
       case 'background-remover': return <BackgroundRemover />;

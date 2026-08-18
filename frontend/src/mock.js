@@ -10,6 +10,16 @@ export const tools = [
     isBeta: false
   },
   {
+    id: 'pdf-to-table',
+    name: 'PDF to Table',
+    slug: 'pdf-to-table',
+    description: 'Ekstrak konten PDF menjadi tabel terstruktur (CSV/Excel).',
+    icon: 'TableProperties',
+    category: 'Dokumen & Perkantoran',
+    isNew: true,
+    isBeta: false
+  },
+  {
     id: 'image-to-pdf',
     name: 'Image ↔ PDF',
     slug: 'image-to-pdf',
