@@ -60,14 +60,20 @@ export default function BackgroundRemover() {
         {!resultUrl ? (
           <>
             {!preview ? (
-              <div 
-                onClick={() => fileInputRef.current.click()}
-                className="border-2 border-dashed border-muted-foreground/25 rounded-xl p-12 transition-colors hover:border-muted-foreground/50 hover:bg-muted/50 cursor-pointer"
-              >
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                  <Icons.Scissors className="w-10 h-10 mb-2 opacity-50" />
-                  <p className="font-medium text-foreground">Click to select an Image</p>
-                  <p className="text-sm">First run will download a ~30MB AI model locally.</p>
+              <div className="space-y-4">
+                <div 
+                  onClick={() => fileInputRef.current.click()}
+                  className="border-2 border-dashed border-muted-foreground/25 rounded-xl p-12 transition-colors hover:border-muted-foreground/50 hover:bg-muted/50 cursor-pointer"
+                >
+                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                    <Icons.Scissors className="w-10 h-10 mb-2 opacity-50" />
+                    <p className="font-medium text-foreground">Click to select an Image</p>
+                    <p className="text-sm">First run will download a ~30MB AI model locally.</p>
+                  </div>
+                </div>
+                <div className="bg-muted/30 p-3 rounded text-xs text-muted-foreground border text-left">
+                  <Icons.Info className="w-4 h-4 inline-block mr-1 mb-0.5" />
+                  <strong>Disclaimer:</strong> Currently, this tool is best suited for removing solid blank spaces or simple backgrounds from logos and graphics (not complex photos).
                 </div>
               </div>
             ) : (

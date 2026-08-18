@@ -69,6 +69,16 @@ export default function ToolLayout() {
             </div>
           </div>
           <div className="flex gap-2 mt-4">
+            {tool.isBeta && (
+              <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-secondary text-xs font-medium text-secondary-foreground border">
+                Beta
+              </span>
+            )}
+            {tool.isNew && (
+              <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-secondary text-xs font-medium text-secondary-foreground border">
+                New
+              </span>
+            )}
             <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-secondary text-xs font-medium text-secondary-foreground border">
               <Icons.ShieldCheck className="w-3.5 h-3.5" />
               100% Client-side
