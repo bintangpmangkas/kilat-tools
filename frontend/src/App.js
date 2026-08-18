@@ -16,7 +16,7 @@ const Home = () => {
           Kilat Tools
         </h1>
         <p className="text-xl text-muted-foreground mb-4">
-          A bunch of useful tools that requires no sign-in and 100% works on your browser
+          A bunch of useful tools that requires no sign-in
         </p>
         <div className="prose prose-zinc dark:prose-invert">
           <p>
