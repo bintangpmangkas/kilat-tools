@@ -141,16 +141,18 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         />
       )}
       <div className={cn(
-        "fixed md:sticky top-0 left-0 z-50 w-72 md:w-64 border-r bg-muted/20 h-screen flex flex-col text-sm transform transition-transform duration-200 ease-in-out bg-background md:bg-muted/20",
-        isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        "fixed md:sticky top-0 z-50 w-72 md:w-64 border-l md:border-l-0 md:border-r bg-background md:bg-muted/20 h-screen flex flex-col text-sm transform transition-transform duration-200 ease-in-out",
+        "right-0 md:left-0 md:right-auto",
+        isMobileOpen ? "translate-x-0" : "translate-x-full md:translate-x-0"
       )}>
         <div className="p-4 border-b bg-card flex justify-between items-center">
-          <Link to="/" onClick={() => setIsMobileOpen(false)} className="flex items-center gap-2 font-bold text-lg mb-0 md:mb-4">
-            <Icons.Zap className="w-5 h-5" fill="currentColor" />
-            Kilat
+          <Link to="/" onClick={() => setIsMobileOpen(false)} className="flex items-center gap-2 font-bold text-lg md:mb-4">
+            <Icons.Zap className="w-5 h-5 hidden md:block" fill="currentColor" />
+            <span className="hidden md:block">Kilat</span>
+            <span className="md:hidden">Navigation</span>
           </Link>
           <button 
-            className="md:hidden p-2 text-muted-foreground hover:bg-muted rounded-md"
+            className="md:hidden p-2 text-muted-foreground hover:bg-muted rounded-md -mr-2"
             onClick={() => setIsMobileOpen(false)}
           >
             <Icons.X className="w-5 h-5" />
@@ -260,7 +262,33 @@ function App() {
       <div className="flex min-h-screen bg-background text-foreground">
         <Sidebar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
         <main className="flex-1 overflow-y-auto relative custom-scrollbar flex flex-col min-h-screen">
-          <div className="absolute top-4 right-4 z-10 flex gap-2">
+          
+          {/* Mobile Header */}
+          <div className="md:hidden flex items-center justify-between p-4 border-b bg-card sticky top-0 z-30">
+            <Link to="/" className="flex items-center gap-2 font-bold text-lg">
+              <Icons.Zap className="w-5 h-5" fill="currentColor" />
+              Kilat
+            </Link>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => document.documentElement.classList.toggle('dark')}
+                className="p-2 border rounded-md hover:bg-muted bg-background transition-colors text-muted-foreground hover:text-foreground shadow-sm"
+                title="Toggle Theme"
+              >
+                <Icons.SunMoon className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => setIsMobileOpen(true)}
+                className="p-2 border rounded-md hover:bg-muted bg-background transition-colors text-muted-foreground hover:text-foreground shadow-sm"
+                title="Open Menu"
+              >
+                <Icons.Menu className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop Theme Toggle */}
+          <div className="hidden md:flex absolute top-4 right-4 z-10 gap-2">
             <button 
               onClick={() => document.documentElement.classList.toggle('dark')}
               className="p-2 border rounded-md hover:bg-muted bg-card transition-colors text-muted-foreground hover:text-foreground"
@@ -268,14 +296,8 @@ function App() {
             >
               <Icons.SunMoon className="w-4 h-4" />
             </button>
-            <button 
-              onClick={() => setIsMobileOpen(true)}
-              className="md:hidden p-2 border rounded-md hover:bg-muted bg-card transition-colors text-muted-foreground hover:text-foreground"
-              title="Open Menu"
-            >
-              <Icons.Menu className="w-4 h-4" />
-            </button>
           </div>
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tools/:slug" element={<ToolLayout />} />
