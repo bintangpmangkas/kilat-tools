@@ -85,7 +85,7 @@ export default function QRGenerator() {
         <div>
           <label className="block text-sm font-medium mb-2">QR Content</label>
           <textarea
-            className="w-full border rounded-md p-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-full border rounded-md p-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring bg-background text-foreground"
             rows={3}
             value={data}
             onChange={(e) => setData(e.target.value)}
@@ -98,14 +98,14 @@ export default function QRGenerator() {
             <label className="block text-sm font-medium mb-2">QR Color</label>
             <div className="flex items-center gap-2">
               <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
-              <input type="text" value={color} onChange={(e) => setColor(e.target.value)} className="border rounded px-2 py-1 text-sm w-full" />
+              <input type="text" value={color} onChange={(e) => setColor(e.target.value)} className="border rounded px-2 py-1 text-sm w-full bg-background text-foreground" />
             </div>
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">Background Color</label>
             <div className="flex items-center gap-2">
               <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
-              <input type="text" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="border rounded px-2 py-1 text-sm w-full" />
+              <input type="text" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="border rounded px-2 py-1 text-sm w-full bg-background text-foreground" />
             </div>
           </div>
         </div>
