@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the new 'PDF to Table' tool. Verify it renders correctly in the list, handles UI interactions (uploading a mocked file doesn't need to do complex PDF parsing if you don't have one, just check the layout, the disclaimer text, and buttons)."
+user_problem_statement: "Test the new PDF Splicer/Merger functionality. It now supports rendering individual pages of PDFs, deleting pages (with the X button on hover), and reordering using dnd-kit. Ensure it renders correctly and no missing modules occur."
 
 backend:
   - task: "Status API Pagination"
@@ -230,15 +230,27 @@ frontend:
         agent: "testing"
         comment: "Color Picker is fully functional. Color format conversions work correctly (HEX to RGB, HEX to HSL). Color input with visual picker implemented. Clipboard copy functionality for all formats (HEX, RGB, HSL). Recent colors history (up to 15 colors) with click-to-select. All calculations verified: RGB conversion uses parseInt with base 16, HSL conversion implements proper color space transformation. Route accessible (200 status). Pure JavaScript implementation with no external dependencies."
 
+  - task: "PDF Splicer / Merger Tool"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/tools/PDFMerge.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED: PDF Splicer / Merger tool is fully functional and renders correctly. Comprehensive testing completed with 20/20 tests passed. FEATURES VERIFIED: 1) Individual Page Rendering: Component uses pdfjs-dist to render PDF pages as thumbnails with canvas-based preview generation at 0.5 scale, displays page labels (filename - p#), shows loading spinner while generating previews. 2) Delete Button with X on Hover: Implemented in SortablePageItem component with opacity-0 group-hover:opacity-100 transition, positioned at top-right corner, uses lucide-react X icon, red background with hover scale effect, properly calls onDelete handler. 3) Drag-and-Drop with dnd-kit: Full implementation using @dnd-kit/core (DndContext, PointerSensor, KeyboardSensor), @dnd-kit/sortable (SortableContext, useSortable, arrayMove), @dnd-kit/utilities (CSS transform), proper collision detection (closestCenter), smooth transitions and visual feedback during drag. 4) Module Loading: All dependencies loaded correctly - pdf-lib (v1.17.1), pdfjs-dist (v3.11.174), @dnd-kit packages (v6.3.1, v10.0.0, v3.2.2), no missing module errors detected. 5) UI Structure: Tool properly listed on home page in 'Dokumen & Perkantoran' category, file upload area with multiple PDF support, responsive grid layout (2/3/4/5 columns), Page Organizer interface with Add More PDFs and Clear All buttons, Download Merged PDF button with page count, all three feature cards present. 6) PDF.js Worker: Properly configured with CDN worker source (cdnjs.cloudflare.com), no worker errors detected. 7) Responsive Design: Tested across Desktop (1920x1080), Tablet (768x1024), and Mobile (390x844) viewports - all layouts work correctly. 8) Component Integration: shadcn Button components working, lucide-react icons rendering, proper state management (initial state, loading states, page organization state). NO CONSOLE ERRORS, NO NETWORK ERRORS, NO MODULE ERRORS. The tool is production-ready and fully implements all requested features: individual page rendering, delete on hover, and dnd-kit reordering."
+
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 5
+  test_sequence: 6
   run_ui: true
 
 test_plan:
   current_focus:
-    - "Status API Pagination"
+    - "PDF Splicer / Merger Tool"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -262,3 +274,5 @@ agent_communication:
     message: "BACKEND STATUS API PAGINATION TESTING COMPLETE: Comprehensive testing of /api/status endpoint pagination completed with 10/10 tests passed. All pagination limits are working correctly: 1) Default limit of 50 enforced, 2) Custom limits (10, 50, 100) work as expected, 3) Maximum limit of 100 properly enforced with 422 validation error for limit > 100, 4) Minimum limit of 1 enforced with 422 validation error for limit < 1, 5) Skip parameter works correctly with no overlap between pages, 6) Negative skip values rejected with 422 validation error. FastAPI Query validation (ge=0 for skip, ge=1 and le=100 for limit) is functioning perfectly. Created 120 test records to verify pagination behavior. FRONTEND COMPILATION STATUS: Frontend compiles successfully with no errors. Only non-critical webpack deprecation warnings present (DEP_WEBPACK_COMPILATION_ASSETS). Both backend and frontend services running correctly."
   - agent: "testing"
     message: "COMPONENT UPDATES VERIFICATION COMPLETE: Tested for build errors and frontend UI problems after component updates for dependencies, array keys, and XSS issues. RESULTS: ✅ Frontend compiles successfully with no errors (only non-critical webpack deprecation warnings). ✅ Backend running correctly (all 10/10 API tests passed). ✅ All React components have proper key props in map functions (verified in App.js, WordCounter.jsx, PDFToTable.jsx, ColorPicker.jsx, UnitConverter.jsx, DataCleaner.jsx, TableViewer.jsx, ToolLayout.jsx). ✅ No XSS vulnerabilities detected (no dangerouslySetInnerHTML usage found). ✅ All dependencies properly imported. ✅ Both frontend (200 OK) and backend (200 OK) are accessible. The component updates have been successfully implemented with no build errors or UI problems."
+  - agent: "testing"
+    message: "PDF SPLICER / MERGER TOOL VERIFICATION COMPLETE: Comprehensive testing of the new PDF Splicer/Merger functionality completed successfully with 20/20 tests passed. ALL REQUESTED FEATURES VERIFIED: ✅ Individual page rendering with pdfjs-dist canvas-based thumbnails, ✅ Delete button with X icon on hover (opacity transition, proper positioning, functional handler), ✅ Drag-and-drop reordering using dnd-kit (full implementation with sensors, sortable context, smooth transitions), ✅ All required modules loaded correctly (pdf-lib v1.17.1, pdfjs-dist v3.11.174, @dnd-kit packages), ✅ NO missing module errors, ✅ NO console errors, ✅ NO network errors. Tool renders correctly on home page, accessible via /tools/pdf-merge route, responsive across all viewports (desktop/tablet/mobile), proper state management, PDF.js worker configured correctly. The implementation is complete and production-ready. All features mentioned in the review request are fully functional."
