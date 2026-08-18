@@ -33,9 +33,6 @@ export default function BackgroundRemover() {
           mode: 'cors',
           credentials: 'omit'
         },
-        progress: (key, current, total) => {
-          setProgress(Math.round((current / total) * 100) || 50);
-        },
         debug: true
       };
       const blob = await removeBackground(file, config);
@@ -94,7 +91,7 @@ export default function BackgroundRemover() {
                   {isProcessing ? (
                     <span className="flex items-center gap-2">
                       <Icons.Loader2 className="w-4 h-4 animate-spin" />
-                      {progress > 0 ? `Processing... ${progress}%` : 'Loading ML Model...'}
+                      Processing...
                     </span>
                   ) : (
                     "Remove Background"

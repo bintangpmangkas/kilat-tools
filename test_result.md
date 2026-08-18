@@ -205,6 +205,9 @@ frontend:
       - working: true
         agent: "testing"
         comment: "FIXED AND WORKING! Changed publicPath from unpkg.com to the official staticimgly.com CDN with correct path structure: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/'. Tested with actual image upload - background removal now works perfectly! The WASM models successfully download from staticimgly.com (all resources returned 200 status). Image processing completes successfully, showing the result with transparent background (checkered pattern visible). Download PNG button is functional. Minor warnings about WebAssembly multi-threading falling back to single-threading due to lack of cross-origin isolation, but this doesn't affect functionality. The tool is fully operational and processes images client-side as expected."
+      - working: true
+        agent: "testing"
+        comment: "PROGRESS TEXT VERIFICATION COMPLETE: Tested the background remover tool to verify it no longer shows '50% stuck' progress text. CONFIRMED: The UI correctly displays 'Processing...' with an animated spinner (Loader2 icon with animate-spin class) when processing an image. NO percentage text or '50% stuck' message is displayed. The button text changes from 'Remove Background' to 'Processing...' during processing. Console logs show the AI model (isnet_fp16 - 88MB) and ONNX runtime WASM files download successfully from staticimgly.com CDN. Background removal functionality works correctly. The progress text issue has been fixed as requested."
 
   - task: "Image Converter Tool"
     implemented: true
@@ -245,12 +248,12 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 6
+  test_sequence: 7
   run_ui: true
 
 test_plan:
   current_focus:
-    - "PDF Splicer / Merger Tool"
+    - "Background Remover Tool - Progress Text"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -276,3 +279,5 @@ agent_communication:
     message: "COMPONENT UPDATES VERIFICATION COMPLETE: Tested for build errors and frontend UI problems after component updates for dependencies, array keys, and XSS issues. RESULTS: ✅ Frontend compiles successfully with no errors (only non-critical webpack deprecation warnings). ✅ Backend running correctly (all 10/10 API tests passed). ✅ All React components have proper key props in map functions (verified in App.js, WordCounter.jsx, PDFToTable.jsx, ColorPicker.jsx, UnitConverter.jsx, DataCleaner.jsx, TableViewer.jsx, ToolLayout.jsx). ✅ No XSS vulnerabilities detected (no dangerouslySetInnerHTML usage found). ✅ All dependencies properly imported. ✅ Both frontend (200 OK) and backend (200 OK) are accessible. The component updates have been successfully implemented with no build errors or UI problems."
   - agent: "testing"
     message: "PDF SPLICER / MERGER TOOL VERIFICATION COMPLETE: Comprehensive testing of the new PDF Splicer/Merger functionality completed successfully with 20/20 tests passed. ALL REQUESTED FEATURES VERIFIED: ✅ Individual page rendering with pdfjs-dist canvas-based thumbnails, ✅ Delete button with X icon on hover (opacity transition, proper positioning, functional handler), ✅ Drag-and-drop reordering using dnd-kit (full implementation with sensors, sortable context, smooth transitions), ✅ All required modules loaded correctly (pdf-lib v1.17.1, pdfjs-dist v3.11.174, @dnd-kit packages), ✅ NO missing module errors, ✅ NO console errors, ✅ NO network errors. Tool renders correctly on home page, accessible via /tools/pdf-merge route, responsive across all viewports (desktop/tablet/mobile), proper state management, PDF.js worker configured correctly. The implementation is complete and production-ready. All features mentioned in the review request are fully functional."
+  - agent: "testing"
+    message: "BACKGROUND REMOVER PROGRESS TEXT VERIFICATION COMPLETE: Tested the background remover tool to verify it no longer shows '50% stuck' progress text as requested in the review. CONFIRMED WORKING: ✅ UI correctly displays 'Processing...' with an animated spinner (Loader2 icon) when processing an image. ✅ NO '50% stuck' text or percentage display is shown. ✅ Button text changes from 'Remove Background' to 'Processing...' during processing. ✅ AI model (isnet_fp16 - 88MB) and ONNX runtime WASM files download successfully from staticimgly.com CDN. ✅ Background removal functionality works correctly. The progress text issue has been fixed as requested. The tool is production-ready."
