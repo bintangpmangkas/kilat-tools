@@ -73,7 +73,7 @@ export const tools = [
     id: 'image-converter',
     name: 'Image Converter',
     slug: 'image-converter',
-    description: 'Konversi format gambar antara PNG, JPEG, WebP secara lokal.',
+    description: 'Konversi format gambar antara PNG, JPEG, WebP, BMP, & ICO secara lokal.',
     icon: 'RefreshCw',
     category: 'Gambar & Aset Visual',
     isNew: true,
