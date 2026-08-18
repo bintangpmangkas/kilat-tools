@@ -20,10 +20,12 @@ export default function UnitConverter() {
     const cats = Object.keys(UNITS[category].rates);
     setUnit1(cats[2] || cats[0]);
     setUnit2(cats[1] || cats[cats.length - 1]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   useEffect(() => {
     convert(val1, unit1, unit2, false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [val1, unit1, unit2, category]);
 
   const convert = (value, fromUnit, toUnit, reverse) => {
