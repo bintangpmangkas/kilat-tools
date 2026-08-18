@@ -99,6 +99,16 @@ export default function ToolLayout() {
               <p className="text-xs text-muted-foreground">Once loaded, you can disconnect your internet.</p>
             </div>
           </div>
+
+          <div className="flex justify-center mt-8 pb-4">
+            <a 
+              href={`mailto:bepekerja@gmail.com?subject=Bug Report - ${tool.name} - Kilat Tools`}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground bg-muted/50 hover:bg-muted border rounded-full transition-colors"
+            >
+              <Icons.Bug className="w-4 h-4" />
+              Find a bug in this tool? Report issue
+            </a>
+          </div>
         </div>
       </div>
     </div>

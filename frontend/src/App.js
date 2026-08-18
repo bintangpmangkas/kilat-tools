@@ -245,9 +245,20 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
         </nav>
       </div>
 
-      <div className="p-4 border-t text-xs text-muted-foreground space-y-2 bg-card">
-        <p>No logins. No tracking.</p>
-        <p>Long live the handmade web.</p>
+      <div className="p-4 border-t text-xs text-muted-foreground space-y-3 bg-card">
+        <div>
+          <p>No logins. No tracking.</p>
+          <p>Long live the handmade web.</p>
+        </div>
+        <div>
+          <a 
+            href="mailto:bepekerja@gmail.com?subject=Bug Report - Kilat Tools" 
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Icons.Bug className="w-3.5 h-3.5" />
+            <span>Report an issue</span>
+          </a>
+        </div>
       </div>
     </div>
     </>

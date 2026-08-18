@@ -102,9 +102,21 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test Background Remover. Try with an image and check if it runs without errors now that I configured the WASM fallbacks in Craco config. Also test Image Converter and Color picker on frontend"
+user_problem_statement: "Check if the 'Report an issue' bug icon link is present in the sidebar (bottom) and in the tool's page (below the 3 cards) as requested."
 
 frontend:
+  - task: "Report an Issue Bug Icon Link"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js, /app/frontend/src/components/ToolLayout.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED: Both 'Report an issue' bug icon links are present and fully functional. 1) Sidebar (bottom): 'Report an issue' link with Bug icon at position y=1048, mailto link to bepekerja@gmail.com with subject 'Bug Report - Kilat Tools'. 2) Tool page (below 3 cards): 'Find a bug in this tool? Report issue' link with Bug icon at position y=974, mailto link includes specific tool name in subject (e.g., 'Bug Report - Word & Character Counter - Kilat Tools'). Both links are visible, have Bug icons from lucide-react, have correct mailto hrefs, and are enabled/clickable. Implementation complete as requested."
+
   - task: "Mobile Responsiveness"
     implemented: true
     working: true
@@ -195,13 +207,12 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 2
+  test_sequence: 3
   run_ui: true
 
 test_plan:
   current_focus:
-    - "Image Converter Tool"
-    - "Color Picker Tool"
+    - "Report an Issue Bug Icon Link"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -217,3 +228,5 @@ agent_communication:
     message: "SUCCESS! Background Remover is now fully functional. Fixed the issue by changing the publicPath from unpkg.com to the official staticimgly.com CDN with the correct path structure (added /dist/ at the end). The WASM models now download successfully from staticimgly.com without CORS issues. Tested with actual image upload - background removal works perfectly, showing transparent background result with download functionality. All three tools (Background Remover, Image Converter, Color Picker) are now working correctly."
   - agent: "testing"
     message: "MOBILE LAYOUT VERIFICATION COMPLETE: Re-tested mobile responsiveness with focus on hamburger menu and title obstruction. CONFIRMED working correctly: Title 'Kilat' remains visible and unobstructed (22.8px gap from sidebar), menu slides smoothly from right with proper animation, all close methods work (X button, navigation links). Minor z-index issue with overlay click is non-critical. Mobile layout is production-ready."
+  - agent: "testing"
+    message: "REPORT AN ISSUE BUG ICON LINK VERIFICATION COMPLETE: Tested presence of 'Report an issue' bug icon links in both requested locations. CONFIRMED working correctly: 1) Sidebar bottom has 'Report an issue' link with Bug icon and correct mailto link. 2) Tool pages have 'Find a bug in this tool? Report issue' link with Bug icon below the 3 feature cards, with tool-specific subject lines. Both links are visible, functional, and properly implemented. Feature request fulfilled."
