@@ -2,7 +2,70 @@ import React, { useState, useRef } from 'react';
 import * as Icons from 'lucide-react';
 import { Button } from '../ui/button';
 
-const FORMATS = ['jpeg', 'png', 'webp', 'bmp'];
+const FORMATS = ['jpeg', 'png', 'webp', 'bmp', 'ico'];
+
+async function generateIco(img) {
+  const sizes = [16, 32, 64];
+  const images = [];
+
+  for (const size of sizes) {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    
+    // Draw centered and covered/contained? Standard favicon is just drawn directly
+    ctx.drawImage(img, 0, 0, size, size);
+    
+    const buffer = await new Promise(resolve => {
+      canvas.toBlob(blob => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsArrayBuffer(blob);
+      }, 'image/png');
+    });
+    
+    images.push({ width: size, height: size, buffer });
+  }
+  
+  const numImages = images.length;
+  const directorySize = 16 * numImages;
+  const headerAndDirectorySize = 6 + directorySize;
+  
+  let totalSize = headerAndDirectorySize;
+  for (const im of images) {
+    totalSize += im.buffer.byteLength;
+  }
+  
+  const icoBuffer = new ArrayBuffer(totalSize);
+  const view = new DataView(icoBuffer);
+  
+  // Header
+  view.setUint16(0, 0, true);
+  view.setUint16(2, 1, true); // type ICO
+  view.setUint16(4, numImages, true);
+  
+  let offset = headerAndDirectorySize;
+  
+  for (let i = 0; i < numImages; i++) {
+    const im = images[i];
+    const dirOffset = 6 + i * 16;
+    
+    view.setUint8(dirOffset + 0, im.width === 256 ? 0 : im.width);
+    view.setUint8(dirOffset + 1, im.height === 256 ? 0 : im.height);
+    view.setUint8(dirOffset + 2, 0); // Palette
+    view.setUint8(dirOffset + 3, 0); // Reserved
+    view.setUint16(dirOffset + 4, 1, true); // Color planes
+    view.setUint16(dirOffset + 6, 32, true); // Bits per pixel
+    view.setUint32(dirOffset + 8, im.buffer.byteLength, true);
+    view.setUint32(dirOffset + 12, offset, true);
+    
+    new Uint8Array(icoBuffer, offset, im.buffer.byteLength).set(new Uint8Array(im.buffer));
+    offset += im.buffer.byteLength;
+  }
+  
+  return new Blob([icoBuffer], { type: 'image/x-icon' });
+}
 
 export default function ImageConverter() {
   const [file, setFile] = useState(null);
@@ -23,12 +86,19 @@ export default function ImageConverter() {
     }
   };
 
-  const handleProcess = () => {
+  const handleProcess = async () => {
     if (!file || !preview) return;
     setIsProcessing(true);
     
     const img = new Image();
-    img.onload = () => {
+    img.onload = async () => {
+      if (format === 'ico') {
+        const icoBlob = await generateIco(img);
+        setResultUrl(URL.createObjectURL(icoBlob));
+        setIsProcessing(false);
+        return;
+      }
+      
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
