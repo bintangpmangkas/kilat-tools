@@ -16,11 +16,11 @@ const Home = () => {
           Kilat Tools
         </h1>
         <p className="text-xl text-muted-foreground mb-4">
-          A collection of small, low stakes and low effort tools.
+          A bunch of useful tools that requires no sign-in and 100% works on your browser
         </p>
         <div className="prose prose-zinc dark:prose-invert">
           <p>
-            No logins, no registration, no data collection. I can't believe I have to say that. Long live the handmade web.
+            Zero-tracking and absolute privacy. All tools works independently on your very own browsers.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             All files are processed locally in your browser.
