@@ -17,17 +17,15 @@ export default function MarkdownEditor() {
     return () => clearTimeout(timeout);
   }, [markdown]);
 
-  const getHtml = () => {
-    const rawHtml = marked.parse(markdown);
-    return DOMPurify.sanitize(rawHtml);
-  };
+  const rawHtml = marked.parse(markdown);
+  const sanitizedHtml = DOMPurify.sanitize(rawHtml);
 
   const handleDownload = (ext) => {
     let content = markdown;
     let type = 'text/markdown';
     
     if (ext === 'html') {
-      content = `<!DOCTYPE html>\n<html>\n<head>\n<meta charset="utf-8">\n<title>Document</title>\n</head>\n<body>\n${getHtml()}\n</body>\n</html>`;
+      content = `<!DOCTYPE html>\n<html>\n<head>\n<meta charset="utf-8">\n<title>Document</title>\n</head>\n<body>\n${sanitizedHtml}\n</body>\n</html>`;
       type = 'text/html';
     }
 
@@ -102,7 +100,7 @@ export default function MarkdownEditor() {
           <div 
             className="flex-1 w-full h-full overflow-y-auto p-6 bg-transparent custom-scrollbar prose prose-zinc dark:prose-invert max-w-none prose-sm sm:prose-base prose-pre:bg-muted prose-pre:text-foreground prose-a:text-primary"
             /* eslint-disable-next-line react/no-danger */
-            dangerouslySetInnerHTML={{ __html: getHtml() }}
+            dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
           />
         )}
       </div>
