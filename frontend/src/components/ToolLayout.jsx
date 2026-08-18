@@ -26,7 +26,7 @@ export default function ToolLayout() {
     return <div className="p-8 text-center">Tool not found. <Link to="/" className="text-primary underline">Go back</Link></div>;
   }
 
-  const Icon = Icons[tool.icon] || Icons.Tool;
+  const Icon = Icons[tool.icon] || Icons.Wrench;
 
   const getToolComponent = () => {
     switch(tool.slug) {

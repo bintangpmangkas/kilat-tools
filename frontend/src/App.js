@@ -78,7 +78,7 @@ const Home = () => {
 };
 
 const ToolCard = ({ tool, variant = 'default' }) => {
-  const Icon = Icons[tool.icon] || Icons.Tool;
+  const Icon = Icons[tool.icon] || Icons.Wrench;
   
   if (variant === 'compact') {
     return (
@@ -123,7 +123,7 @@ const ToolCard = ({ tool, variant = 'default' }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
   const location = useLocation();
   const [search, setSearch] = useState('');
   
@@ -132,29 +132,49 @@ const Sidebar = () => {
     : tools;
 
   return (
-    <div className="w-64 border-r bg-muted/20 h-screen sticky top-0 flex flex-col text-sm">
-      <div className="p-4 border-b bg-card">
-        <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-4">
-          <Icons.Zap className="w-5 h-5" fill="currentColor" />
-          Kilat
-        </Link>
-        <div className="relative">
-          <Icons.Search className="w-4 h-4 absolute left-2.5 top-2.5 text-muted-foreground" />
-          <input 
-            type="text" 
-            placeholder="Search tools..." 
-            className="w-full bg-background border rounded-md pl-9 pr-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-ring"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+    <>
+      {/* Mobile overlay */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+      <div className={cn(
+        "fixed md:sticky top-0 left-0 z-50 w-72 md:w-64 border-r bg-muted/20 h-screen flex flex-col text-sm transform transition-transform duration-200 ease-in-out bg-background md:bg-muted/20",
+        isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}>
+        <div className="p-4 border-b bg-card flex justify-between items-center">
+          <Link to="/" onClick={() => setIsMobileOpen(false)} className="flex items-center gap-2 font-bold text-lg mb-0 md:mb-4">
+            <Icons.Zap className="w-5 h-5" fill="currentColor" />
+            Kilat
+          </Link>
+          <button 
+            className="md:hidden p-2 text-muted-foreground hover:bg-muted rounded-md"
+            onClick={() => setIsMobileOpen(false)}
+          >
+            <Icons.X className="w-5 h-5" />
+          </button>
         </div>
-      </div>
+        <div className="p-4 border-b bg-card pt-0 md:pt-4">
+          <div className="relative mt-4 md:mt-0">
+            <Icons.Search className="w-4 h-4 absolute left-2.5 top-2.5 text-muted-foreground" />
+            <input 
+              type="text" 
+              placeholder="Search tools..." 
+              className="w-full bg-background border rounded-md pl-9 pr-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-ring"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
       
       <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
         <nav className="space-y-6">
           <div>
             <Link 
               to="/" 
+              onClick={() => setIsMobileOpen(false)}
               className={cn(
                 "flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors",
                 location.pathname === '/' ? "bg-muted font-medium text-foreground" : "text-muted-foreground"
@@ -175,6 +195,7 @@ const Sidebar = () => {
                   <li key={tool.id}>
                     <Link 
                       to={`/tools/${tool.slug}`}
+                      onClick={() => setIsMobileOpen(false)}
                       className={cn(
                         "flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors text-xs",
                         location.pathname === `/tools/${tool.slug}` ? "bg-muted font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
@@ -198,11 +219,12 @@ const Sidebar = () => {
                 </div>
                 <ul className="space-y-0.5">
                   {tools.filter(t => t.category === category).map(tool => {
-                    const Icon = Icons[tool.icon] || Icons.Tool;
+                    const Icon = Icons[tool.icon] || Icons.Wrench;
                     return (
                       <li key={tool.id}>
                         <Link 
                           to={`/tools/${tool.slug}`}
+                          onClick={() => setIsMobileOpen(false)}
                           className={cn(
                             "flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors text-xs",
                             location.pathname === `/tools/${tool.slug}` ? "bg-muted font-medium text-foreground" : "text-muted-foreground hover:text-foreground"
@@ -226,15 +248,18 @@ const Sidebar = () => {
         <p>Long live the handmade web.</p>
       </div>
     </div>
+    </>
   );
 };
 
 function App() {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
   return (
     <BrowserRouter>
       <div className="flex min-h-screen bg-background text-foreground">
-        <Sidebar />
-        <main className="flex-1 overflow-y-auto relative custom-scrollbar">
+        <Sidebar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
+        <main className="flex-1 overflow-y-auto relative custom-scrollbar flex flex-col min-h-screen">
           <div className="absolute top-4 right-4 z-10 flex gap-2">
             <button 
               onClick={() => document.documentElement.classList.toggle('dark')}
@@ -242,6 +267,13 @@ function App() {
               title="Toggle Theme"
             >
               <Icons.SunMoon className="w-4 h-4" />
+            </button>
+            <button 
+              onClick={() => setIsMobileOpen(true)}
+              className="md:hidden p-2 border rounded-md hover:bg-muted bg-card transition-colors text-muted-foreground hover:text-foreground"
+              title="Open Menu"
+            >
+              <Icons.Menu className="w-4 h-4" />
             </button>
           </div>
           <Routes>
