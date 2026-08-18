@@ -248,7 +248,7 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
       <div className="p-4 border-t text-xs text-muted-foreground space-y-3 bg-card">
         <div>
           <p>No logins. No tracking.</p>
-          <p>Long live the handmade web.</p>
+          <p>All files are processed locally in your browser.</p>
         </div>
         <div>
           <a 
