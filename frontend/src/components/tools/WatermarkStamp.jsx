@@ -87,7 +87,7 @@ export default function WatermarkStamp() {
                 type="text" 
                 value={watermarkText} 
                 onChange={e => setWatermarkText(e.target.value)} 
-                className="w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                className="w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-ring bg-background text-foreground"
               />
             </div>
             
@@ -123,7 +123,7 @@ export default function WatermarkStamp() {
               <label className="block text-sm font-medium mb-2">Color</label>
               <div className="flex items-center gap-2">
                 <input type="color" value={color} onChange={e => setColor(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
-                <input type="text" value={color} onChange={e => setColor(e.target.value)} className="border rounded px-2 py-1 text-sm flex-1 focus:outline-none" />
+                <input type="text" value={color} onChange={e => setColor(e.target.value)} className="border rounded px-2 py-1 text-sm flex-1 focus:outline-none bg-background text-foreground" />
               </div>
             </div>
           </>

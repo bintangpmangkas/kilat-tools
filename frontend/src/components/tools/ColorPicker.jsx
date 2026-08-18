@@ -76,7 +76,7 @@ export default function ColorPicker() {
                   const val = e.target.value;
                   if (/^#[0-9A-Fa-f]{6}$/i.test(val)) setColor(val);
                 }}
-                className="flex-1 border rounded p-2 text-center font-mono focus:outline-none focus:ring-1 focus:ring-ring"
+                className="flex-1 border rounded p-2 text-center font-mono focus:outline-none focus:ring-1 focus:ring-ring bg-background text-foreground"
               />
               <Button variant="outline" size="icon" onClick={() => copyToClipboard(color.toUpperCase())}>
                 <Icons.Copy className="w-4 h-4" />
@@ -88,7 +88,7 @@ export default function ColorPicker() {
                 type="text" 
                 readOnly
                 value={hexToRgb(color) || ''} 
-                className="flex-1 border rounded p-2 text-center font-mono bg-muted/30 focus:outline-none"
+                className="flex-1 border rounded p-2 text-center font-mono bg-muted/30 focus:outline-none text-foreground"
               />
               <Button variant="outline" size="icon" onClick={() => copyToClipboard(`rgb(${hexToRgb(color)})`)}>
                 <Icons.Copy className="w-4 h-4" />
@@ -100,7 +100,7 @@ export default function ColorPicker() {
                 type="text" 
                 readOnly
                 value={hexToHsl(color) || ''} 
-                className="flex-1 border rounded p-2 text-center font-mono bg-muted/30 focus:outline-none"
+                className="flex-1 border rounded p-2 text-center font-mono bg-muted/30 focus:outline-none text-foreground"
               />
               <Button variant="outline" size="icon" onClick={() => copyToClipboard(`hsl(${hexToHsl(color)})`)}>
                 <Icons.Copy className="w-4 h-4" />
