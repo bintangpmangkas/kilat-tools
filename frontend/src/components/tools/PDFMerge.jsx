@@ -8,6 +8,7 @@ import {
   closestCenter,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -93,6 +94,12 @@ export default function PDFMerge() {
         distance: 5,
       },
     }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -176,7 +183,8 @@ export default function PDFMerge() {
         const { fileId, pageIndex } = page;
         
         if (!loadedPdfs[fileId]) {
-          loadedPdfs[fileId] = await PDFDocument.load(sourceFiles[fileId].arrayBuffer);
+          const freshBuffer = await sourceFiles[fileId].file.arrayBuffer();
+          loadedPdfs[fileId] = await PDFDocument.load(freshBuffer);
         }
         
         const sourcePdf = loadedPdfs[fileId];
