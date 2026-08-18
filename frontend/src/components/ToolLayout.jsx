@@ -19,6 +19,7 @@ import UnitConverter from './tools/UnitConverter';
 import TableViewer from './tools/TableViewer';
 import WatermarkStamp from './tools/WatermarkStamp';
 import ImageConverter from './tools/ImageConverter';
+import ImageEnhancer from './tools/ImageEnhancer';
 import ColorPicker from './tools/ColorPicker';
 
 export default function ToolLayout() {
@@ -38,6 +39,7 @@ export default function ToolLayout() {
       case 'image-to-pdf': return <ImageToPDF />;
       case 'image-compressor': return <ImageCompressor />;
       case 'background-remover': return <BackgroundRemover />;
+      case 'image-enhancer': return <ImageEnhancer />;
       case 'text-case': return <TextCase />;
       case 'word-counter': return <WordCounter />;
       case 'excel-cleaner': return <DataCleaner />;

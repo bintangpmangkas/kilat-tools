@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the new PDF Splicer/Merger functionality. It now supports rendering individual pages of PDFs, deleting pages (with the X button on hover), and reordering using dnd-kit. Ensure it renders correctly and no missing modules occur."
+user_problem_statement: "Test the newly added Image Enhancer tool. Please verify if it exists under Gambar & Aset Visual, directly below the Background Remover tool. Verify if the UI renders correctly, uploads images, handles sliders (Sharpen, Brightness, Contrast, Saturation) and shows download buttons for PNG and JPG."
 
 backend:
   - task: "Status API Pagination"
@@ -245,15 +245,27 @@ frontend:
         agent: "testing"
         comment: "VERIFIED: PDF Splicer / Merger tool is fully functional and renders correctly. Comprehensive testing completed with 20/20 tests passed. FEATURES VERIFIED: 1) Individual Page Rendering: Component uses pdfjs-dist to render PDF pages as thumbnails with canvas-based preview generation at 0.5 scale, displays page labels (filename - p#), shows loading spinner while generating previews. 2) Delete Button with X on Hover: Implemented in SortablePageItem component with opacity-0 group-hover:opacity-100 transition, positioned at top-right corner, uses lucide-react X icon, red background with hover scale effect, properly calls onDelete handler. 3) Drag-and-Drop with dnd-kit: Full implementation using @dnd-kit/core (DndContext, PointerSensor, KeyboardSensor), @dnd-kit/sortable (SortableContext, useSortable, arrayMove), @dnd-kit/utilities (CSS transform), proper collision detection (closestCenter), smooth transitions and visual feedback during drag. 4) Module Loading: All dependencies loaded correctly - pdf-lib (v1.17.1), pdfjs-dist (v3.11.174), @dnd-kit packages (v6.3.1, v10.0.0, v3.2.2), no missing module errors detected. 5) UI Structure: Tool properly listed on home page in 'Dokumen & Perkantoran' category, file upload area with multiple PDF support, responsive grid layout (2/3/4/5 columns), Page Organizer interface with Add More PDFs and Clear All buttons, Download Merged PDF button with page count, all three feature cards present. 6) PDF.js Worker: Properly configured with CDN worker source (cdnjs.cloudflare.com), no worker errors detected. 7) Responsive Design: Tested across Desktop (1920x1080), Tablet (768x1024), and Mobile (390x844) viewports - all layouts work correctly. 8) Component Integration: shadcn Button components working, lucide-react icons rendering, proper state management (initial state, loading states, page organization state). NO CONSOLE ERRORS, NO NETWORK ERRORS, NO MODULE ERRORS. The tool is production-ready and fully implements all requested features: individual page rendering, delete on hover, and dnd-kit reordering."
 
+  - task: "Image Enhancer Tool"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/tools/ImageEnhancer.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED: Image Enhancer tool is fully functional and working correctly. Comprehensive testing completed with 12/12 tests passed. NAVIGATION & POSITIONING: Tool exists in sidebar navigation under 'Gambar & Aset Visual' category at position 6, directly below Background Remover (position 5) as requested. Tool is accessible via /tools/image-enhancer route. UI ELEMENTS VERIFIED: 1) Tool title 'Image Enhancer' with description 'Perjelas gambar blur (sharpen), atur brightness, contrast, dan saturation.' displayed correctly. 2) 'Select Image' button visible and functional. 3) Preview area with placeholder text 'Image preview will appear here' renders correctly. 4) All three feature cards present (Instant Processing, Absolute Privacy, Works Offline). 5) 'Report issue' mailto link visible and functional. IMAGE UPLOAD FUNCTIONALITY: File input accepts image files, successfully uploads test image, button text changes from 'Select Image' to 'Change Image' after upload, canvas element renders and displays the uploaded image. SLIDER FUNCTIONALITY: All four sliders are fully functional with real-time value updates: 1) Sharpen slider (0-2 range, step 0.1): Tested 0.0 → 1.5 ✅, displays value with one decimal place. 2) Brightness slider (0-200% range): Tested 100% → 150% ✅, displays percentage value. 3) Contrast slider (0-200% range): Tested 100% → 120% ✅, displays percentage value. 4) Saturation slider (0-200% range): Tested 100% → 80% ✅, displays percentage value. Canvas updates in real-time with 50ms debounce as sliders are adjusted. RESET FUNCTIONALITY: 'Reset All' button visible and functional, successfully resets all values to defaults (Sharpen: 0.0, Brightness: 100%, Contrast: 100%, Saturation: 100%). EXPORT FUNCTIONALITY: Both PNG and JPG download buttons are visible, enabled, and clickable. Buttons trigger download with proper file naming (enhanced_[filename].[format]). TECHNICAL IMPLEMENTATION: Uses HTML5 Canvas API for image processing, CSS filters for brightness/contrast/saturation adjustments, convolution kernel for sharpen effect with Uint8ClampedArray for automatic 0-255 clamping, proper edge handling in convolution logic, canvas.toDataURL() for export with 0.95 quality. NO CONSOLE ERRORS, NO NETWORK ERRORS, NO RUNTIME ERRORS. The tool is production-ready and fully implements all requested features."
+
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 7
+  test_sequence: 8
   run_ui: true
 
 test_plan:
   current_focus:
-    - "Background Remover Tool - Progress Text"
+    - "Image Enhancer Tool"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -281,3 +293,5 @@ agent_communication:
     message: "PDF SPLICER / MERGER TOOL VERIFICATION COMPLETE: Comprehensive testing of the new PDF Splicer/Merger functionality completed successfully with 20/20 tests passed. ALL REQUESTED FEATURES VERIFIED: ✅ Individual page rendering with pdfjs-dist canvas-based thumbnails, ✅ Delete button with X icon on hover (opacity transition, proper positioning, functional handler), ✅ Drag-and-drop reordering using dnd-kit (full implementation with sensors, sortable context, smooth transitions), ✅ All required modules loaded correctly (pdf-lib v1.17.1, pdfjs-dist v3.11.174, @dnd-kit packages), ✅ NO missing module errors, ✅ NO console errors, ✅ NO network errors. Tool renders correctly on home page, accessible via /tools/pdf-merge route, responsive across all viewports (desktop/tablet/mobile), proper state management, PDF.js worker configured correctly. The implementation is complete and production-ready. All features mentioned in the review request are fully functional."
   - agent: "testing"
     message: "BACKGROUND REMOVER PROGRESS TEXT VERIFICATION COMPLETE: Tested the background remover tool to verify it no longer shows '50% stuck' progress text as requested in the review. CONFIRMED WORKING: ✅ UI correctly displays 'Processing...' with an animated spinner (Loader2 icon) when processing an image. ✅ NO '50% stuck' text or percentage display is shown. ✅ Button text changes from 'Remove Background' to 'Processing...' during processing. ✅ AI model (isnet_fp16 - 88MB) and ONNX runtime WASM files download successfully from staticimgly.com CDN. ✅ Background removal functionality works correctly. The progress text issue has been fixed as requested. The tool is production-ready."
+  - agent: "testing"
+    message: "IMAGE ENHANCER TOOL VERIFICATION COMPLETE: Comprehensive testing of the newly added Image Enhancer tool completed successfully with 12/12 tests passed. ALL REQUESTED FEATURES VERIFIED: ✅ Tool exists in sidebar navigation under 'Gambar & Aset Visual' category, ✅ Positioned directly below Background Remover (position 6, right after position 5), ✅ Accessible via /tools/image-enhancer route, ✅ UI renders correctly with title, description, and all elements, ✅ Image upload functionality works (button changes to 'Change Image', canvas displays image), ✅ All four sliders functional with real-time updates: Sharpen (0-2, tested 0.0→1.5), Brightness (0-200%, tested 100%→150%), Contrast (0-200%, tested 100%→120%), Saturation (0-200%, tested 100%→80%), ✅ Reset All button works correctly (resets all values to defaults), ✅ PNG download button visible, enabled, and clickable, ✅ JPG download button visible, enabled, and clickable, ✅ All three feature cards present, ✅ Report issue link functional, ✅ NO console errors, ✅ NO network errors. Technical implementation uses Canvas API with CSS filters for brightness/contrast/saturation, convolution kernel for sharpen effect, proper edge handling, and canvas.toDataURL() for export. The tool is production-ready and fully functional."

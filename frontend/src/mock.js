@@ -60,6 +60,16 @@ export const tools = [
     isBeta: true
   },
   {
+    id: 'image-enhancer',
+    name: 'Image Enhancer',
+    slug: 'image-enhancer',
+    description: 'Perjelas gambar blur (sharpen), atur brightness, contrast, dan saturation.',
+    icon: 'Wand2',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
     id: 'image-converter',
     name: 'Image Converter',
     slug: 'image-converter',
