@@ -104,6 +104,19 @@
 
 user_problem_statement: "Test the new 'PDF to Table' tool. Verify it renders correctly in the list, handles UI interactions (uploading a mocked file doesn't need to do complex PDF parsing if you don't have one, just check the layout, the disclaimer text, and buttons)."
 
+backend:
+  - task: "Status API Pagination"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED: Status API pagination is fully functional and correctly enforces limits. Comprehensive testing completed with 10/10 tests passed. Default pagination returns max 50 records as expected. Custom limits (10, 50, 100) work correctly. Maximum limit of 100 is properly enforced - requests with limit > 100 are rejected with 422 validation error. Minimum limit of 1 is enforced - requests with limit < 1 are rejected with 422 validation error. Skip parameter works correctly for pagination with no overlap between pages. Negative skip values are rejected with 422 validation error. FastAPI Query validation with ge=0 for skip and ge=1, le=100 for limit is working as designed. Created 120 test records to verify pagination behavior. All validation constraints are properly enforced by Pydantic."
+
 frontend:
   - task: "PDF to Table Tool"
     implemented: true
@@ -220,12 +233,12 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 4
+  test_sequence: 5
   run_ui: true
 
 test_plan:
   current_focus:
-    - "PDF to Table Tool"
+    - "Status API Pagination"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -245,3 +258,5 @@ agent_communication:
     message: "REPORT AN ISSUE BUG ICON LINK VERIFICATION COMPLETE: Tested presence of 'Report an issue' bug icon links in both requested locations. CONFIRMED working correctly: 1) Sidebar bottom has 'Report an issue' link with Bug icon and correct mailto link. 2) Tool pages have 'Find a bug in this tool? Report issue' link with Bug icon below the 3 feature cards, with tool-specific subject lines. Both links are visible, functional, and properly implemented. Feature request fulfilled."
   - agent: "testing"
     message: "PDF TO TABLE TOOL VERIFICATION COMPLETE: Comprehensive testing of the new PDF to Table tool completed successfully. All UI elements render correctly including file upload area, disclaimer text in Indonesian, Extract to Table button (properly disabled without file), three feature cards, and report issue link. Tool is properly listed on home page and accessible via /tools/pdf-to-table route. Mobile responsiveness verified (390x844 viewport). No console errors or critical issues found. The tool is production-ready and fully functional for UI interactions. Actual PDF parsing functionality uses pdfjs-dist library and appears correctly implemented with table extraction logic, CSV/Excel export via xlsx library, and clipboard copy functionality."
+  - agent: "testing"
+    message: "BACKEND STATUS API PAGINATION TESTING COMPLETE: Comprehensive testing of /api/status endpoint pagination completed with 10/10 tests passed. All pagination limits are working correctly: 1) Default limit of 50 enforced, 2) Custom limits (10, 50, 100) work as expected, 3) Maximum limit of 100 properly enforced with 422 validation error for limit > 100, 4) Minimum limit of 1 enforced with 422 validation error for limit < 1, 5) Skip parameter works correctly with no overlap between pages, 6) Negative skip values rejected with 422 validation error. FastAPI Query validation (ge=0 for skip, ge=1 and le=100 for limit) is functioning perfectly. Created 120 test records to verify pagination behavior. FRONTEND COMPILATION STATUS: Frontend compiles successfully with no errors. Only non-critical webpack deprecation warnings present (DEP_WEBPACK_COMPILATION_ASSETS). Both backend and frontend services running correctly."

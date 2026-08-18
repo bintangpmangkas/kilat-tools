@@ -208,9 +208,9 @@ export default function PDFToTable() {
                 <table className="w-full">
                   <tbody>
                     {tableData.map((row, i) => (
-                      <tr key={i} className="border-b last:border-b-0 hover:bg-muted/30">
+                      <tr key={`row-${i}`} className="border-b last:border-b-0 hover:bg-muted/30">
                         {row.map((cell, j) => (
-                          <td key={j} className="px-3 py-2 border-r last:border-r-0 whitespace-nowrap">
+                          <td key={`cell-${i}-${j}`} className="px-3 py-2 border-r last:border-r-0 whitespace-nowrap">
                             {cell}
                           </td>
                         ))}

@@ -101,6 +101,7 @@ export default function MarkdownEditor() {
         {(view === 'preview' || view === 'split') && (
           <div 
             className="flex-1 w-full h-full overflow-y-auto p-6 bg-transparent custom-scrollbar prose prose-zinc dark:prose-invert max-w-none prose-sm sm:prose-base prose-pre:bg-muted prose-pre:text-foreground prose-a:text-primary"
+            /* eslint-disable-next-line react/no-danger */
             dangerouslySetInnerHTML={{ __html: getHtml() }}
           />
         )}

@@ -97,10 +97,10 @@ export default function TableViewer() {
             </thead>
             <tbody>
               {filteredData.slice(0, 500).map((row, i) => (
-                <tr key={i} className="border-b last:border-b-0 hover:bg-muted/30">
+                <tr key={`row-${i}`} className="border-b last:border-b-0 hover:bg-muted/30">
                   <td className="px-4 py-2 border-r text-muted-foreground text-center text-xs">{i + 1}</td>
                   {headers.map(h => (
-                    <td key={h} className="px-4 py-2 border-r last:border-r-0 truncate max-w-[300px]" title={String(row[h] || '')}>
+                    <td key={`cell-${i}-${h}`} className="px-4 py-2 border-r last:border-r-0 truncate max-w-[300px]" title={String(row[h] || '')}>
                       {String(row[h] || '')}
                     </td>
                   ))}

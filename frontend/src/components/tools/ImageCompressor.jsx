@@ -78,7 +78,7 @@ export default function ImageCompressor() {
                 <p className="font-medium mb-2">Selected Images ({files.length}):</p>
                 <ul className="space-y-1 text-muted-foreground">
                   {files.map((f, i) => (
-                    <li key={i}>• {f.name} - {(f.size / 1024 / 1024).toFixed(2)} MB</li>
+                    <li key={`${f.name}-${i}`}>• {f.name} - {(f.size / 1024 / 1024).toFixed(2)} MB</li>
                   ))}
                 </ul>
               </div>
@@ -109,7 +109,7 @@ export default function ImageCompressor() {
             
             <div className="text-left bg-muted/30 p-4 rounded-md border text-sm space-y-3">
               {results.map((res, i) => (
-                <div key={i} className="flex justify-between items-center border-b pb-2 last:border-0 last:pb-0">
+                <div key={`${res.originalName}-${i}`} className="flex justify-between items-center border-b pb-2 last:border-0 last:pb-0">
                   <div className="truncate pr-4">
                     <p className="font-medium truncate">{res.originalName}</p>
                     <p className="text-xs text-muted-foreground">

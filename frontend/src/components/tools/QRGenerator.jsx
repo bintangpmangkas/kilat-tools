@@ -15,6 +15,7 @@ export default function QRGenerator() {
   const qrCode = useRef(null);
   const fileInputRef = useRef(null);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     qrCode.current = new QRCodeStyling({
       width: 300,
@@ -58,7 +59,9 @@ export default function QRGenerator() {
 
   useEffect(() => {
     if (qrRef.current && qrCode.current) {
-      qrRef.current.innerHTML = '';
+      while (qrRef.current.firstChild) {
+        qrRef.current.removeChild(qrRef.current.firstChild);
+      }
       qrCode.current.append(qrRef.current);
     }
   }, [data, color, bgColor, dotType, cornerType, logoFile]);

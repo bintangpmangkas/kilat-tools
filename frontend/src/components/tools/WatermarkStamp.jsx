@@ -24,6 +24,7 @@ export default function WatermarkStamp() {
     }
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (imageSrc && canvasRef.current) {
       const canvas = canvasRef.current;

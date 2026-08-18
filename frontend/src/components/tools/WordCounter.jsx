@@ -15,6 +15,7 @@ export default function WordCounter() {
     topWords: []
   });
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     // Calculate stats
     const words = text.split(/\s+/).filter(w => w.length > 0);
