@@ -174,8 +174,8 @@ export default function DataCleaner() {
                     </thead>
                     <tbody>
                       {data.slice(0, 5).map((row, i) => (
-                        <tr key={i}>
-                          {headers.map(h => <td key={h} className="px-2 py-1 border-b border-muted">{row[h]?.toString().substring(0, 20) || ''}</td>)}
+                        <tr key={`row-${i}`}>
+                          {headers.map(h => <td key={`cell-${i}-${h}`} className="px-2 py-1 border-b border-muted">{row[h]?.toString().substring(0, 20) || ''}</td>)}
                         </tr>
                       ))}
                     </tbody>

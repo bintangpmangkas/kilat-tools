@@ -127,9 +127,11 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }) => {
   const location = useLocation();
   const [search, setSearch] = useState('');
   
-  const filteredTools = search 
-    ? tools.filter(t => t.name.toLowerCase().includes(search.toLowerCase()) || t.description.toLowerCase().includes(search.toLowerCase()))
-    : tools;
+  const filteredTools = React.useMemo(() => {
+    return search 
+      ? tools.filter(t => t.name.toLowerCase().includes(search.toLowerCase()) || t.description.toLowerCase().includes(search.toLowerCase()))
+      : tools;
+  }, [search]);
 
   return (
     <>

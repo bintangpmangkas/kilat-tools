@@ -72,7 +72,7 @@ export default function PDFMerge() {
           <div className="text-left bg-muted/30 p-4 rounded-md border text-sm">
             <p className="font-medium mb-2">Selected Files ({files.length}):</p>
             <ul className="space-y-1 text-muted-foreground">
-              {files.map((f, i) => <li key={i}>• {f.name}</li>)}
+              {files.map((f, i) => <li key={`${f.name}-${i}`}>• {f.name}</li>)}
             </ul>
           </div>
         )}

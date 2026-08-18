@@ -116,7 +116,7 @@ export default function ColorPicker() {
         <div className="grid grid-cols-5 md:grid-cols-4 gap-2">
           {history.map((c, i) => (
             <button
-              key={i}
+              key={`${c}-${i}`}
               className="w-10 h-10 rounded-md border shadow-sm transition-transform hover:scale-110"
               style={{ backgroundColor: c }}
               onClick={() => setColor(c)}
