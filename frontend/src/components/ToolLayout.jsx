@@ -17,6 +17,8 @@ import MarkdownEditor from './tools/MarkdownEditor';
 import UnitConverter from './tools/UnitConverter';
 import TableViewer from './tools/TableViewer';
 import WatermarkStamp from './tools/WatermarkStamp';
+import ImageConverter from './tools/ImageConverter';
+import ColorPicker from './tools/ColorPicker';
 
 export default function ToolLayout() {
   const { slug } = useParams();
@@ -43,6 +45,8 @@ export default function ToolLayout() {
       case 'unit-converter': return <UnitConverter />;
       case 'table-viewer': return <TableViewer />;
       case 'watermark': return <WatermarkStamp />;
+      case 'image-converter': return <ImageConverter />;
+      case 'color-picker': return <ColorPicker />;
       default: return <div className="p-8 text-center text-muted-foreground">Tool under construction.</div>;
     }
   };

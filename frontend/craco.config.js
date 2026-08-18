@@ -84,6 +84,20 @@ let webpackConfig = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      // Add fallbacks for onnxruntime-web
+      webpackConfig.resolve = webpackConfig.resolve || {};
+      webpackConfig.resolve.fallback = {
+        ...webpackConfig.resolve.fallback,
+        "fs": false,
+        "path": false,
+        "crypto": false
+      };
+
+      // Ignore certain node modules from source-map-loader to avoid warnings
+      webpackConfig.ignoreWarnings = [
+        /Failed to parse source map/,
+        /Module not found: Error: Can't resolve 'fs'/
+      ];
 
       // Add ignored patterns to reduce watched directories
         webpackConfig.watchOptions = {

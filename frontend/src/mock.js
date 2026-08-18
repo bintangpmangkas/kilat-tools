@@ -80,6 +80,26 @@ export const tools = [
     isBeta: false
   },
   {
+    id: 'image-converter',
+    name: 'Image Converter',
+    slug: 'image-converter',
+    description: 'Konversi format gambar antara PNG, JPEG, WebP secara lokal.',
+    icon: 'RefreshCw',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
+    id: 'color-picker',
+    name: 'Color Picker & Palette',
+    slug: 'color-picker',
+    description: 'Pilih warna, dapatkan kode HEX/RGB/HSL, dan simpan riwayat.',
+    icon: 'Palette',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
     id: 'qr-generator',
     name: 'QR Code Generator',
     slug: 'qr-generator',

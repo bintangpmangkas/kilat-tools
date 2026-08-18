@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-// import { removeBackground } from '@imgly/background-removal';
+import { removeBackground } from '@imgly/background-removal';
 import * as Icons from 'lucide-react';
 import { Button } from '../ui/button';
 
@@ -27,24 +27,23 @@ export default function BackgroundRemover() {
     setProgress(0);
     
     try {
-      // TEMPORARILY DISABLED: Background removal library has dependency issues
-      // const config = {
-      //   progress: (key, current, total) => {
-      //     setProgress(Math.round((current / total) * 100) || 50);
-      //   }
-      // };
-      // const blob = await removeBackground(file, config);
-      
-      // Mock implementation for testing
-      alert('Background removal feature is temporarily disabled due to library dependency issues. This feature requires onnxruntime-web configuration.');
-      setIsProcessing(false);
-      return;
-      
-      // const url = URL.createObjectURL(blob);
-      // setResultUrl(url);
+      const config = {
+        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
+        fetchArgs: {
+          mode: 'cors',
+          credentials: 'omit'
+        },
+        progress: (key, current, total) => {
+          setProgress(Math.round((current / total) * 100) || 50);
+        },
+        debug: true
+      };
+      const blob = await removeBackground(file, config);
+      const url = URL.createObjectURL(blob);
+      setResultUrl(url);
     } catch (error) {
-      console.error(error);
-      alert('Failed to remove background. Make sure you are using a supported image format.');
+      console.error('Background removal error:', error);
+      alert('Failed to remove background: ' + (error.message || 'Unknown error'));
     }
     
     setIsProcessing(false);
