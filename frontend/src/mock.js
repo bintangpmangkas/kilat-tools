@@ -60,6 +60,16 @@ export const tools = [
     isBeta: true
   },
   {
+    id: 'image-converter',
+    name: 'Image Converter',
+    slug: 'image-converter',
+    description: 'Konversi format gambar antara PNG, JPEG, WebP secara lokal.',
+    icon: 'RefreshCw',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
     id: 'image-compressor',
     name: 'Smart Image Compressor',
     slug: 'image-compressor',
@@ -87,16 +97,6 @@ export const tools = [
     icon: 'Stamp',
     category: 'Gambar & Aset Visual',
     isNew: false,
-    isBeta: false
-  },
-  {
-    id: 'image-converter',
-    name: 'Image Converter',
-    slug: 'image-converter',
-    description: 'Konversi format gambar antara PNG, JPEG, WebP secara lokal.',
-    icon: 'RefreshCw',
-    category: 'Gambar & Aset Visual',
-    isNew: true,
     isBeta: false
   },
   {
