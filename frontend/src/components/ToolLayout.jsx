@@ -20,6 +20,7 @@ import TableViewer from './tools/TableViewer';
 import WatermarkStamp from './tools/WatermarkStamp';
 import ImageConverter from './tools/ImageConverter';
 import ImageEnhancer from './tools/ImageEnhancer';
+import ImageCropper from './tools/ImageCropper';
 import ColorPicker from './tools/ColorPicker';
 
 export default function ToolLayout() {
@@ -40,6 +41,7 @@ export default function ToolLayout() {
       case 'image-compressor': return <ImageCompressor />;
       case 'background-remover': return <BackgroundRemover />;
       case 'image-enhancer': return <ImageEnhancer />;
+      case 'image-cropper': return <ImageCropper />;
       case 'text-case': return <TextCase />;
       case 'word-counter': return <WordCounter />;
       case 'excel-cleaner': return <DataCleaner />;

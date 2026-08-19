@@ -90,6 +90,16 @@ export const tools = [
     isBeta: false
   },
   {
+    id: 'image-cropper',
+    name: 'Image Cropper',
+    slug: 'image-cropper',
+    description: 'Crop gambar dengan bebas, dimensi kustom, atau rasio preset.',
+    icon: 'Crop',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
     id: 'social-cropper',
     name: 'Social Media Multi-Cropper',
     slug: 'social-cropper',
@@ -125,7 +135,7 @@ export const tools = [
     slug: 'qr-generator',
     description: 'Buat QR Code kustom dengan warna, bentuk, dan logo di tengah.',
     icon: 'QrCode',
-    category: 'Produktivitas & Utilitas Sehari-hari',
+    category: 'Produktivitas & Utilitas',
     isNew: false,
     isBeta: false
   },
@@ -135,7 +145,7 @@ export const tools = [
     slug: 'table-viewer',
     description: 'Buka dan visualisasikan file JSON atau CSV mentah menjadi tabel interaktif.',
     icon: 'Database',
-    category: 'Produktivitas & Utilitas Sehari-hari',
+    category: 'Produktivitas & Utilitas',
     isNew: false,
     isBeta: false
   },
@@ -145,7 +155,7 @@ export const tools = [
     slug: 'word-counter',
     description: 'Hitung kata, karakter, dan estimasi waktu baca secara real-time.',
     icon: 'Hash',
-    category: 'Produktivitas & Utilitas Sehari-hari',
+    category: 'Produktivitas & Utilitas',
     isNew: false,
     isBeta: false
   },
@@ -155,7 +165,7 @@ export const tools = [
     slug: 'unit-converter',
     description: 'Konversi satuan panjang, berat, ukuran data, dan kurs statis.',
     icon: 'Scale',
-    category: 'Produktivitas & Utilitas Sehari-hari',
+    category: 'Produktivitas & Utilitas',
     isNew: false,
     isBeta: false
   },
@@ -165,7 +175,7 @@ export const tools = [
     slug: 'markdown-editor',
     description: 'Editor Markdown bersih dengan preview live dan fitur ekspor.',
     icon: 'FileCode',
-    category: 'Produktivitas & Utilitas Sehari-hari',
+    category: 'Produktivitas & Utilitas',
     isNew: false,
     isBeta: false
   }
