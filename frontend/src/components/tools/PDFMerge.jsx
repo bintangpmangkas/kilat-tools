@@ -38,6 +38,7 @@ function SortablePageItem({ id, page, onDelete }) {
     transition,
     zIndex: isDragging ? 10 : 1,
     opacity: isDragging ? 0.5 : 1,
+    touchAction: 'none',
   };
 
   return (
