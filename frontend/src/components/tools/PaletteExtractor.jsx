@@ -27,9 +27,9 @@ export default function ColorPaletteExtractor() {
         const domColor = await getColor(imgRef.current);
         const pal = await getPalette(imgRef.current, { colorCount: 8 });
         
-        // Convert Color objects to RGB arrays for compatibility
-        const domColorRgb = [domColor.r, domColor.g, domColor.b];
-        const palRgb = pal.map(color => [color.r, color.g, color.b]);
+        // Convert Color objects to RGB arrays using .array() method
+        const domColorRgb = domColor ? domColor.array() : [0, 0, 0];
+        const palRgb = Array.isArray(pal) ? pal.map(color => color.array()) : [];
         
         setDominant(domColorRgb);
         setPalette(palRgb);
@@ -39,10 +39,13 @@ export default function ColorPaletteExtractor() {
     }
   };
 
-  const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
-    const hex = x.toString(16);
-    return hex.length === 1 ? '0' + hex : hex;
-  }).join('');
+  const rgbToHex = (r, g, b) => {
+    if (r === undefined || g === undefined || b === undefined) return '#000000';
+    return '#' + [r, g, b].map(x => {
+      const hex = Number(x).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    }).join('');
+  };
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
