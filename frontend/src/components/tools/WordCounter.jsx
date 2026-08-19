@@ -4,20 +4,7 @@ import { Button } from '../ui/button';
 
 export default function WordCounter() {
   const [text, setText] = useState('');
-  const [stats, setStats] = useState({
-    words: 0,
-    chars: 0,
-    charsNoSpaces: 0,
-    sentences: 0,
-    paragraphs: 0,
-    readingTime: 0,
-    speakingTime: 0,
-    topWords: []
-  });
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    // Calculate stats
+  const stats = React.useMemo(() => {
     const words = text.split(/\s+/).filter(w => w.length > 0);
     const chars = text.length;
     const charsNoSpaces = text.replace(/\s/g, '').length;
@@ -44,7 +31,7 @@ export default function WordCounter() {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10);
 
-    setStats({
+    return {
       words: words.length,
       chars,
       charsNoSpaces,
@@ -53,8 +40,7 @@ export default function WordCounter() {
       readingTime,
       speakingTime,
       topWords
-    });
-
+    };
   }, [text]);
 
   return (

@@ -24,12 +24,11 @@ export default function WatermarkStamp() {
     }
   };
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (imageSrc && canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
-      const img = new Image();
+      const img = new window.Image();
       
       img.onload = () => {
         // Set canvas dimensions
@@ -59,7 +58,7 @@ export default function WatermarkStamp() {
       };
       img.src = imageSrc;
     }
-  }, [imageSrc, watermarkText, opacity, fontSize, color]);
+  }, [imageSrc, watermarkText, opacity, fontSize, color, canvasRef]);
 
   const handleDownload = () => {
     if (result) {

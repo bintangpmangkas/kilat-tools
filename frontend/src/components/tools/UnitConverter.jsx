@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as Icons from 'lucide-react';
 import { Button } from '../ui/button';
 
@@ -15,20 +15,7 @@ export default function UnitConverter() {
   const [val2, setVal2] = useState('');
   const [unit2, setUnit2] = useState('cm');
 
-  useEffect(() => {
-    // Set default units when category changes
-    const cats = Object.keys(UNITS[category].rates);
-    setUnit1(cats[2] || cats[0]);
-    setUnit2(cats[1] || cats[cats.length - 1]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
-
-  useEffect(() => {
-    convert(val1, unit1, unit2, false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [val1, unit1, unit2, category]);
-
-  const convert = (value, fromUnit, toUnit, reverse) => {
+  const convert = useCallback((value, fromUnit, toUnit, reverse) => {
     if (!value || isNaN(value)) {
       if (reverse) setVal1('');
       else setVal2('');
@@ -47,7 +34,18 @@ export default function UnitConverter() {
     } else {
       setVal2(formatted);
     }
-  };
+  }, [category]);
+
+  useEffect(() => {
+    // Set default units when category changes
+    const cats = Object.keys(UNITS[category].rates);
+    setUnit1(cats[2] || cats[0]);
+    setUnit2(cats[1] || cats[cats.length - 1]);
+  }, [category]);
+
+  useEffect(() => {
+    convert(val1, unit1, unit2, false);
+  }, [val1, unit1, unit2, category, convert]);
 
   const handleSwap = () => {
     setUnit1(unit2);

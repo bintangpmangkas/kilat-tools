@@ -15,34 +15,36 @@ export default function QRGenerator() {
   const qrCode = useRef(null);
   const fileInputRef = useRef(null);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    qrCode.current = new QRCodeStyling({
-      width: 300,
-      height: 300,
-      type: 'svg',
-      data: data || ' ',
-      image: logoFile,
-      dotsOptions: {
-        color: color,
-        type: dotType
-      },
-      backgroundOptions: {
-        color: bgColor,
-      },
-      cornersSquareOptions: {
-        type: cornerType,
-        color: color
-      },
-      imageOptions: {
-        crossOrigin: 'anonymous',
-        margin: 10
-      },
-      qrOptions: {
-        errorCorrectionLevel: logoFile ? 'H' : 'Q'
-      }
-    });
-  }, []);
+    // Only init once
+    if (!qrCode.current) {
+      qrCode.current = new QRCodeStyling({
+        width: 300,
+        height: 300,
+        type: 'svg',
+        data: data || ' ',
+        image: logoFile,
+        dotsOptions: {
+          color: color,
+          type: dotType
+        },
+        backgroundOptions: {
+          color: bgColor,
+        },
+        cornersSquareOptions: {
+          type: cornerType,
+          color: color
+        },
+        imageOptions: {
+          crossOrigin: 'anonymous',
+          margin: 10
+        },
+        qrOptions: {
+          errorCorrectionLevel: logoFile ? 'H' : 'Q'
+        }
+      });
+    }
+  }, [data, color, bgColor, dotType, cornerType, logoFile]);
 
   useEffect(() => {
     if (qrCode.current) {
