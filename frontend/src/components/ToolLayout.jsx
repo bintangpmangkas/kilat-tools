@@ -22,6 +22,12 @@ import ImageConverter from './tools/ImageConverter';
 import ImageEnhancer from './tools/ImageEnhancer';
 import ImageCropper from './tools/ImageCropper';
 import ColorPicker from './tools/ColorPicker';
+import PaletteExtractor from './tools/PaletteExtractor';
+import MetadataViewer from './tools/MetadataViewer';
+import Base64Encoder from './tools/Base64Encoder';
+import JsonFormatter from './tools/JsonFormatter';
+import RegexTester from './tools/RegexTester';
+import PomodoroTimer from './tools/PomodoroTimer';
 
 export default function ToolLayout() {
   const { slug } = useParams();
@@ -53,6 +59,12 @@ export default function ToolLayout() {
       case 'watermark': return <WatermarkStamp />;
       case 'image-converter': return <ImageConverter />;
       case 'color-picker': return <ColorPicker />;
+      case 'color-palette-extractor': return <PaletteExtractor />;
+      case 'image-metadata-viewer': return <MetadataViewer />;
+      case 'base64-encoder': return <Base64Encoder />;
+      case 'json-formatter': return <JsonFormatter />;
+      case 'regex-tester': return <RegexTester />;
+      case 'pomodoro-timer': return <PomodoroTimer />;
       default: return <div className="p-8 text-center text-muted-foreground">Tool under construction.</div>;
     }
   };

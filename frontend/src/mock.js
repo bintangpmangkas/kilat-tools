@@ -178,11 +178,71 @@ export const tools = [
     category: 'Produktivitas & Utilitas',
     isNew: false,
     isBeta: false
+  },
+  {
+    id: 'color-palette-extractor',
+    name: 'Color Palette Extractor',
+    slug: 'color-palette-extractor',
+    description: 'Ekstrak palet warna dominan dari gambar. Dapatkan kode HEX dan RGB.',
+    icon: 'Pipette',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
+    id: 'image-metadata-viewer',
+    name: 'Image Metadata Viewer',
+    slug: 'image-metadata-viewer',
+    description: 'Lihat data EXIF gambar (dimensi, ukuran, model kamera, GPS, tanggal).',
+    icon: 'Info',
+    category: 'Gambar & Aset Visual',
+    isNew: true,
+    isBeta: false
+  },
+  {
+    id: 'base64-encoder',
+    name: 'Base64 Encoder / Decoder',
+    slug: 'base64-encoder',
+    description: 'Encode teks/gambar ke Base64, atau decode string Base64 kembali.',
+    icon: 'Code',
+    category: 'Produktivitas & Utilitas',
+    isNew: true,
+    isBeta: false
+  },
+  {
+    id: 'json-formatter',
+    name: 'JSON Formatter & Validator',
+    slug: 'json-formatter',
+    description: 'Format dan validasi struktur JSON mentah, tampilkan error jika ada.',
+    icon: 'Braces',
+    category: 'Produktivitas & Utilitas',
+    isNew: true,
+    isBeta: false
+  },
+  {
+    id: 'regex-tester',
+    name: 'Regex Tester',
+    slug: 'regex-tester',
+    description: 'Uji pola regex secara real-time dengan menyorot hasil yang cocok.',
+    icon: 'SearchCode',
+    category: 'Produktivitas & Utilitas',
+    isNew: true,
+    isBeta: false
+  },
+  {
+    id: 'pomodoro-timer',
+    name: 'Pomodoro / Focus Timer',
+    slug: 'pomodoro-timer',
+    description: 'Timer fokus standar (25m kerja / 5m istirahat) dengan notifikasi suara.',
+    icon: 'Timer',
+    category: 'Produktivitas & Utilitas',
+    isNew: true,
+    isBeta: false
   }
 ];
 
 export const categories = [
   'Dokumen & Perkantoran',
   'Gambar & Aset Visual',
-  'Produktivitas & Utilitas Sehari-hari'
+  'Produktivitas & Utilitas'
 ];
