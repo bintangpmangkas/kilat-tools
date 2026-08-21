@@ -20,6 +20,16 @@ export const tools = [
     isBeta: false
   },
   {
+    id: 'pdf-compressor',
+    name: 'PDF Compressor',
+    slug: 'pdf-compressor',
+    description: 'Kompres ukuran file PDF secara lokal tanpa upload ke server.',
+    icon: 'FileArchive',
+    category: 'Dokumen & Perkantoran',
+    isNew: true,
+    isBeta: false
+  },
+  {
     id: 'image-to-pdf',
     name: 'Image ↔ PDF',
     slug: 'image-to-pdf',

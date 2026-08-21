@@ -6,6 +6,7 @@ import { Button } from './ui/button';
 
 import PDFMerge from './tools/PDFMerge';
 import PDFToTable from './tools/PDFToTable';
+import PDFCompressor from './tools/PDFCompressor';
 import ImageToPDF from './tools/ImageToPDF';
 import ImageCompressor from './tools/ImageCompressor';
 import BackgroundRemover from './tools/BackgroundRemover';
@@ -43,6 +44,7 @@ export default function ToolLayout() {
     switch(tool.slug) {
       case 'pdf-merge': return <PDFMerge />;
       case 'pdf-to-table': return <PDFToTable />;
+      case 'pdf-compressor': return <PDFCompressor />;
       case 'image-to-pdf': return <ImageToPDF />;
       case 'image-compressor': return <ImageCompressor />;
       case 'background-remover': return <BackgroundRemover />;
