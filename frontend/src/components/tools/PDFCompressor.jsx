@@ -1,10 +1,20 @@
 import React, { useState, useRef } from 'react';
 import { PDFDocument } from 'pdf-lib';
+import * as pdfjsLib from 'pdfjs-dist';
 import * as Icons from 'lucide-react';
 import { Button } from '../ui/button';
 
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+const COMPRESSION_LEVELS = {
+  light: { label: 'Light', quality: 0.85, scale: 2.0 },
+  medium: { label: 'Medium', quality: 0.60, scale: 1.5 },
+  aggressive: { label: 'Aggressive', quality: 0.30, scale: 1.0 },
+};
+
 export default function PDFCompressor() {
   const [file, setFile] = useState(null);
+  const [compressionLevel, setCompressionLevel] = useState('medium');
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState(null);
   const fileInputRef = useRef(null);
@@ -23,16 +33,43 @@ export default function PDFCompressor() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       
-      // Load the PDF document
-      // Note: pdf-lib doesn't have advanced image downsampling out of the box, 
-      // but simply loading and resaving a PDF often removes unused objects, 
-      // object streams, and metadata, providing a baseline "compression".
-      // We set useObjectStreams: false which sometimes decreases size, 
-      // but true is usually better for compression. We will use true.
-      const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+      // Load the PDF using PDF.js to render pages to images
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       
-      // Save it with objects streams enabled to maximize internal compression
-      const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+      const newPdfDoc = await PDFDocument.create();
+      
+      const level = COMPRESSION_LEVELS[compressionLevel];
+      
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: level.scale });
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        
+        // Fill white background
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        await page.render({ canvasContext: ctx, viewport }).promise;
+        
+        // Compress as JPEG
+        const jpegDataUrl = canvas.toDataURL('image/jpeg', level.quality);
+        const imageBytes = await fetch(jpegDataUrl).then(res => res.arrayBuffer());
+        
+        const embeddedImage = await newPdfDoc.embedJpg(imageBytes);
+        const newPage = newPdfDoc.addPage([embeddedImage.width, embeddedImage.height]);
+        newPage.drawImage(embeddedImage, {
+          x: 0,
+          y: 0,
+          width: embeddedImage.width,
+          height: embeddedImage.height,
+        });
+      }
+      
+      const pdfBytes = await newPdfDoc.save({ useObjectStreams: true });
       
       const compressedBlob = new Blob([pdfBytes], { type: 'application/pdf' });
       const compressedUrl = URL.createObjectURL(compressedBlob);
@@ -85,14 +122,33 @@ export default function PDFCompressor() {
             </div>
 
             {file && (
-              <div className="text-left bg-muted/30 p-4 rounded-md border text-sm flex items-center justify-between">
-                <div className="truncate pr-4">
-                  <p className="font-medium truncate">{file.name}</p>
-                  <p className="text-muted-foreground">{formatSize(file.size)}</p>
+              <div className="space-y-4">
+                <div className="text-left bg-muted/30 p-4 rounded-md border text-sm flex items-center justify-between">
+                  <div className="truncate pr-4">
+                    <p className="font-medium truncate">{file.name}</p>
+                    <p className="text-muted-foreground">{formatSize(file.size)}</p>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={() => setFile(null)} className="text-destructive hover:text-destructive hover:bg-destructive/10 shrink-0">
+                    <Icons.X className="w-4 h-4" />
+                  </Button>
                 </div>
-                <Button variant="ghost" size="icon" onClick={() => setFile(null)} className="text-destructive hover:text-destructive hover:bg-destructive/10 shrink-0">
-                  <Icons.X className="w-4 h-4" />
-                </Button>
+                
+                <div className="text-left space-y-2">
+                  <label className="text-sm font-medium">Compression Level</label>
+                  <div className="flex gap-2">
+                    {Object.entries(COMPRESSION_LEVELS).map(([key, config]) => (
+                      <Button
+                        key={key}
+                        variant={compressionLevel === key ? 'default' : 'outline'}
+                        onClick={() => setCompressionLevel(key)}
+                        className="flex-1"
+                        size="sm"
+                      >
+                        {config.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
@@ -113,8 +169,9 @@ export default function PDFCompressor() {
                 )}
               </Button>
             </div>
+            
             <p className="text-xs text-muted-foreground italic max-w-sm mx-auto">
-              Note: As this runs locally in your browser, compression relies on optimizing internal PDF structures rather than destructive image downsampling. Results may vary depending on the PDF.
+              Kompresi agresif dapat menurunkan kualitas visual dokumen secara signifikan.
             </p>
           </>
         ) : (
