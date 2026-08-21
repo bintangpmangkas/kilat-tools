@@ -1,4 +1,4 @@
-# Kilat — Browser Utility Tools
+# https://raw.githubusercontent.com/bintangpmangkas/kilat-tools/refs/heads/main/frontend/public/favicon.ico Kilat — Browser Utility Tools
 
 Kilat adalah situs kumpulan **24 utility tools** yang **100% diproses di sisi klien (browser)** — tanpa sign-in, tanpa server pemrosesan, tanpa unggahan file ke cloud. File pengguna tidak pernah meninggalkan perangkat mereka; semua komputasi berjalan lokal via JavaScript, WebAssembly, dan Web Worker.
 
